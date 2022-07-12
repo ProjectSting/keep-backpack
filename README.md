@@ -26,7 +26,7 @@
 
 # How to Install
 
-- step0: Add images inside `inventoryimages` to `qb-inventory/html/images`
+- step0: Add images inside `inventoryimages` to `aj-inventory/html/images`
 - step1: Add Below code to `qb-core/shared/items.lua`
 
 ```lua
@@ -81,7 +81,7 @@
 ```
 
 - step2 (important): fix for exploit (backpack in backpack)
-- open qb-inventory/server/main.lua
+- open aj-inventory/server/main.lua
 - find this event 'inventory:server:SaveInventory'
 - find 'elseif type == "stash" then' it should look like this:
 
@@ -94,16 +94,16 @@ elseif type == "drop" then
 - change code inside it to look like this
 
 ```lua
-elseif type == "stash" then
-     local indexstart, indexend = string.find(id, 'Backpack_')
-     if indexstart and indexend then
-          TriggerEvent('keep-backpack:server:saveBackpack', source, id, Stashes[id].items, function(close)
-               Stashes[id].isOpen = close
-          end)
-          return
-     end
-     SaveStashItems(id, Stashes[id].items)
-elseif type == "drop" then
+	elseif type == "stash" then
+         local indexstart, indexend = string.find(id, 'Backpack_')
+         if indexstart and indexend then
+              TriggerEvent('keep-backpack:server:saveBackpack', source, id, Stashes[id].items, function(close)
+                   Stashes[id].isOpen = close
+              end)
+              return
+         end
+		 SaveStashItems(id, Stashes[id].items)
+	elseif type == "drop" then
 ```
 
 - step3 (optional): add backpackshop
